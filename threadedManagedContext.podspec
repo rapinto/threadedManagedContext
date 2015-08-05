@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "threadedManagedContext"
-  s.version      = "1.0.2"
+  s.version      = "1.0.3"
   s.summary      = "Used to perform operation on new NSManagedObjectContext in background thread"
 
   s.description  = <<-DESC
@@ -39,8 +39,8 @@ Pod::Spec.new do |s|
   #  Popular ones are 'MIT', 'BSD' and 'Apache License, Version 2.0'.
   #
 
-  #s.license      = "MIT"
-  s.license      = { :type => "MIT", :file => "LICENSE" }
+  s.license      = "MIT"
+  #s.license      = { :type => "MIT", :file => "LICENSE" }
 
 
   # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/rapinto/threadedManagedContext.git", :tag => "1.0.2" }
+  s.source       = { :git => "https://github.com/rapinto/threadedManagedContext.git", :tag => "1.0.3" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

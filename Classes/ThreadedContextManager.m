@@ -51,7 +51,6 @@
     {
         NSManagedObjectContext* lContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
         self.mManagedObjectContext_ = lContext;
-        [lContext release];
         [mManagedObjectContext_ setParentContext:_Context];
         [mManagedObjectContext_ setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
         
@@ -65,8 +64,8 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"ThreadedContextManagerRelease" object:nil];
-    [mManagedObjectContext_ release];
-	[super	dealloc];
+    
+    NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 

@@ -65,10 +65,10 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-#s.platform     = :ios, "7.0"
+  #s.platform     = :ios, "7.0"
 
   #  When using multiple platforms
-  s.ios.deployment_target = "7.0"
+  s.ios.deployment_target = "8.0"
   # s.osx.deployment_target = "10.7"
   s.watchos.deployment_target = "2.0"
 
@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/rapinto/threadedManagedContext.git", :tag => "1.0.5" }
+  s.source       = { :git => "https://github.com/rapinto/threadedManagedContext.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -90,10 +90,8 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "Classes", "Classes/*.{h,m}"
-  s.exclude_files = "Classes/Exclude"
-
-  s.public_header_files = "Classes/*.h"
+  s.ios.source_files  = "Classes", "Classes/*.{h,m}"
+  s.watchos.source_files = "Classes", "Classes/*.{h,m}"
 
 
   # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

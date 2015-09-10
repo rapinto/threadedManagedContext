@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "threadedManagedContext"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
   s.summary      = "Used to perform operation on new NSManagedObjectContext in background thread"
 
   s.description  = <<-DESC

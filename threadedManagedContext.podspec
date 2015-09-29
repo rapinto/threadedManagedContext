@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "threadedManagedContext"
-  s.version      = "1.0.7"
+  s.version      = "1.0.8"
   s.summary      = "Used to perform operation on new NSManagedObjectContext in background thread"
 
   s.description  = <<-DESC
@@ -114,8 +114,8 @@ Pod::Spec.new do |s|
   #
 
   # s.framework  = "SomeFramework"
-    ss.watchos.frameworks = 'CoreData'
-    ss.ios.frameworks = 'CoreData'
+    s.watchos.frameworks = 'CoreData'
+    s.ios.frameworks = 'CoreData'
 
 
   # s.library   = "iconv"

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "threadedManagedContext"
-  s.version      = "1.0.4"
+  s.version      = "1.0.7"
   s.summary      = "Used to perform operation on new NSManagedObjectContext in background thread"
 
   s.description  = <<-DESC
@@ -68,10 +68,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '7.0'
   s.watchos.deployment_target = '2.0'
 
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
-#s.watchos.deployment_target = "2.0"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -80,7 +76,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/rapinto/threadedManagedContext.git", :tag => s.platform }
+  s.source       = { :git => "https://github.com/rapinto/threadedManagedContext.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

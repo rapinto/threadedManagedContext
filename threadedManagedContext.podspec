@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "threadedManagedContext"
-  s.version      = "1.0.8"
+  s.version      = "2.O.0"
   s.summary      = "Used to perform operation on new NSManagedObjectContext in background thread"
 
   s.description  = <<-DESC
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "https://github.com/rapinto/threadedManagedContext"
+  s.homepage     = "https://gitlab.6minutecanoe.com/ios-pods/ThreadedContextManager"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -64,7 +64,6 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  # s.platform     = :ios
   s.ios.deployment_target = '7.0'
   s.watchos.deployment_target = '2.0'
 
@@ -76,7 +75,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/rapinto/threadedManagedContext.git", :tag => s.version }
+  s.source       = { :git => "https://gitlab.6minutecanoe.com/ios-pods/ThreadedContextManager.git", :tag => s.version }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -131,6 +130,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+    s.dependency 'MiscUtils', '~> 1.0'
 
 end

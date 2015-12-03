@@ -26,35 +26,31 @@
 // THE SOFTWARE.
 
 
-
 #import "ThreadedContextManager.h"
+
+#import "Macros.h"
 
 
 @implementation ThreadedContextManager
 
 
-
 @synthesize mManagedObjectContext_;
 
 
-
-#pragma mark -
-#pragma mark Object Life Cycle Methods
+#pragma mark - Object Life Cycle
 
 
-
-- (id)initWithContext:(NSManagedObjectContext*)_Context
+- (id)initWithContext:(NSManagedObjectContext*)context
 {
     self = [super init];
     
     if (self)
     {
-        NSManagedObjectContext* lContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        self.mManagedObjectContext_ = lContext;
-        [mManagedObjectContext_ setParentContext:_Context];
+        self.mManagedObjectContext_ = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [mManagedObjectContext_ setParentContext:context];
         [mManagedObjectContext_ setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ThreadedContextManagerInit" object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ThreadedContextManager_Init object:nil];
     }
     
     return self;
@@ -63,16 +59,11 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ThreadedContextManagerRelease" object:nil];
-    
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    [[NSNotificationCenter defaultCenter] postNotificationName:ThreadedContextManager_Release object:nil];
 }
 
 
-
-#pragma mark -
-#pragma mark Data Management Methods
-
+#pragma mark - Public Management
 
 
 - (NSManagedObjectContext*)managedObjectContext
@@ -81,61 +72,72 @@
 }
 
 
-- (void)performBlockWaitUntilDone:(void (^)(NSManagedObjectContext* _Context))_Block  success:(void (^)(NSManagedObjectContext* _Context))_Success
+- (void)performBlockWaitUntilDone:(void (^)(NSManagedObjectContext* context))block
+                          success:(void (^)())success
+                          failure:(void (^)(NSError* error))failure
 {
     [self.managedObjectContext performBlockAndWait:^
      {
-         _Block(self.managedObjectContext);
-         NSError* lError = nil;
-         [self.managedObjectContext save:&lError];
+         BlockSafe(block, self.managedObjectContext);
          
-         if (lError)
+         NSError* error = nil;
+         [self.managedObjectContext save:&error];
+         
+         if (error)
          {
-             NSLog(@"%@", [lError localizedDescription]);
+             BlockSafe(failure, error);
+             return;
          }
          
          [self.managedObjectContext.parentContext performBlock:^
           {
-              NSError* lError2 = nil;
+              NSError* error2 = nil;
               
-              [self.managedObjectContext.parentContext save:&lError2];
+              [self.managedObjectContext.parentContext save:&error2];
               
-              if (lError2)
+              if (error2)
               {
-                  NSLog(@"%@", [lError localizedDescription]);
+                  BlockSafe(failure, error2);
+                  return;
               }
               
-              _Success(self.managedObjectContext);
+              BlockSafe (success);
+
           }];
      }];
 }
 
 
-- (void)performBlock:(void (^)(NSManagedObjectContext* _Context))_Block  success:(void (^)(NSManagedObjectContext* _Context))_Success
+- (void)performBlock:(void (^)(NSManagedObjectContext* context))block
+             success:(void (^)())success
+             failure:(void (^)(NSError* error))failure
 {
     [self.managedObjectContext performBlock:^
      {
-         _Block(self.managedObjectContext);
-         NSError* lError = nil;
-         [self.managedObjectContext save:&lError];
+         BlockSafe(block, self.managedObjectContext);
          
-         if (lError)
+         NSError* error = nil;
+         [self.managedObjectContext save:&error];
+         
+         if (error)
          {
-             NSLog(@"%@", [lError localizedDescription]);
+             BlockSafe(failure, error);
+             return;
          }
          
          [self.managedObjectContext.parentContext performBlock:^
           {
-              NSError* lError2 = nil;
+              NSError* error2 = nil;
               
-              [self.managedObjectContext.parentContext save:&lError2];
+              [self.managedObjectContext.parentContext save:&error2];
               
-              if (lError2)
+              if (error2)
               {
-                  NSLog(@"%@", [lError localizedDescription]);
+                  BlockSafe(failure, error2);
+                  return;
               }
               
-              _Success(self.managedObjectContext);
+              BlockSafe (success);
           }];
      }];
 }

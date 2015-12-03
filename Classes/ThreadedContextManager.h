@@ -26,24 +26,36 @@
 // THE SOFTWARE.
 
 
-
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
 
+static NSString * const ThreadedContextManager_Init         = @"ThreadedContextManagerInit";
+static NSString * const ThreadedContextManager_Release      = @"ThreadedContextManagerRelease";
+
 
 @interface ThreadedContextManager : NSObject
+
 
 @property (nonatomic, retain) NSManagedObjectContext* mManagedObjectContext_;
 
 
+#pragma mark - Object Life Cycle
+
 - (id)initWithContext:(NSManagedObjectContext*)_Context;
 
 
-- (NSManagedObjectContext*)managedObjectContext;
-- (void)performBlockWaitUntilDone:(void (^)(NSManagedObjectContext* _Context))_Block  success:(void (^)(NSManagedObjectContext* _Context))_Success;
-- (void)performBlock:(void (^)(NSManagedObjectContext* _Context))_Block  success:(void (^)(NSManagedObjectContext* _Context))_Success;
+#pragma mark - Public Management
 
+- (NSManagedObjectContext*)managedObjectContext;
+
+- (void)performBlockWaitUntilDone:(void (^)(NSManagedObjectContext* context))block
+                          success:(void (^)())success
+                          failure:(void (^)(NSError* error))failure;
+
+- (void)performBlock:(void (^)(NSManagedObjectContext* context))block
+             success:(void (^)())success
+             failure:(void (^)(NSError* error))failure;
 
 
 @end

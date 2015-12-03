@@ -15,8 +15,8 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "threadedManagedContext"
-  s.version      = "2.0.1"
+  s.name         = "ThreadedManagedContext"
+  s.version      = "2.0.2"
   s.summary      = "Used to perform operation on new NSManagedObjectContext in background thread"
 
   s.description  = <<-DESC

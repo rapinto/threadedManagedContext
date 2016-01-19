@@ -31,18 +31,33 @@
 #import <CoreData/CoreData.h>
 
 
+static NSString * const ThreadedContextManager_Init = @"ThreadedContextManagerInit";
+static NSString * const ThreadedContextManager_Release = @"ThreadedContextManagerRelease";
+
 
 @interface ThreadedContextManager : NSObject
 
-@property (nonatomic, retain) NSManagedObjectContext* mManagedObjectContext_;
+
+@property (nonatomic, retain) NSManagedObjectContext * managedObjectContext;
+
+
+#pragma mark - Cocoa
 
 
 - (id)initWithContext:(NSManagedObjectContext*)_Context;
 
 
-- (NSManagedObjectContext*)managedObjectContext;
-- (void)performBlockWaitUntilDone:(void (^)(NSManagedObjectContext* _Context))_Block  success:(void (^)(NSManagedObjectContext* _Context))_Success;
-- (void)performBlock:(void (^)(NSManagedObjectContext* _Context))_Block  success:(void (^)(NSManagedObjectContext* _Context))_Success;
+#pragma mark - Public
+
+
+- (void)performBlockWaitUntilDone:(NSArray * (^)(NSManagedObjectContext * context))block
+                          success:(void (^)(NSArray * readableObjects))success
+                          failure:(void (^)(NSError * error))failure;
+
+
+- (void)performBlock:(NSArray * (^)(NSManagedObjectContext * context))block
+             success:(void (^)(NSArray * readableObjects))success
+             failure:(void (^)(NSError * error))failure;;
 
 
 
